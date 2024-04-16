@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "libheif-js": "^1.17.1"
+  }
+}
