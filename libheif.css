@@ -1,0 +1,10 @@
+html,
+body {
+  font-family: sans-serif;
+}
+
+canvas {
+  max-width: 400px;
+  max-height: 400px;
+  outline: 1px solid red;
+}

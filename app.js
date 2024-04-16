@@ -1,38 +1,32 @@
-// const libheif = window.libheif()
+document.getElementById('upload').addEventListener('change', function (e) {
+  if (e.target.files.length > 0) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
 
-console.log('libheif:', libheif);
+    reader.onload = function (event) {
+      const heifFile = event.target.result;
+      const heifDecoder = new libheif.HeifDecoder();
+      const data = new Uint8Array(heifFile);
 
-const decoder = new libheif.HeifDecoder() //Error: libheif.HeifDecoder() is not a constructor
+      try {
+        const result = heifDecoder.decode(data);
+        if (result.length > 0) {
+          const image = result[0];
+          const canvas = document.getElementById('canvas');
+          canvas.width = image.display_width;
+          canvas.height = image.display_height;
+          const ctx = canvas.getContext('2d');
+          const imageData = ctx.createImageData(canvas.width, canvas.height);
+          imageData.data.set(image.data);
+          ctx.putImageData(imageData, 0, 0);
+        } else {
+          console.error('No images found in HEIF file.');
+        }
+      } catch (error) {
+        console.error('Error decoding HEIF image:', error);
+      }
+    };
 
-
-
-
-
-
-
-document.getElementById('loadFileButton').addEventListener('change', function (event) {
-  const file = event.target.files[0];
-  if (!file) {
-    return;
+    reader.readAsArrayBuffer(file);
   }
-
-  const reader = new FileReader();
-
-  // If success
-  reader.onload = function (e) {
-    let raw = new Uint8Array(e.target.result);
-    console.log('File read:', raw);
-
-    // TODO: Decode HEIF
-    
-  };
-
-  // If error
-  reader.onerror = function (error) {
-    console.error('Error reading file:', error);
-  };
-
-  // Execute!
-  console.log('reading file...');
-  reader.readAsArrayBuffer(file);
 });

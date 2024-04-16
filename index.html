@@ -1,26 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-
-  
-  
-  <!-- Pure Javascript -->
-  <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif/libheif.js"></script>
-  
-  <!-- WASM Bundle -->
-  <!-- <script src="https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.js"></script> -->
-  
-  <!-- ES Module -->
-  <!-- <script type="module"> import libheif from 'https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.mjs'; </script> -->
-  <script src="app.js" defer></script>
-  
-
-</head>
-<body>
-  <h1>libheif.js Demo</h1>
-  <input type="file" id="loadFileButton" /><br>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>libheif.js Demo</title>
+  </head>
+  <body>
+    <h1>libheif.js Demo</h1>
+    <input type="file" id="upload" accept=".heic" />
+    <canvas id="canvas"></canvas>
+    <script src="app.js"></script>
+  </body>
 </html>
