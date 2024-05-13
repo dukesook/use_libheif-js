@@ -1,4 +1,5 @@
-import { HeifFile } from 'libheif-js';
+import libheif from 'https://cdn.jsdelivr.net/npm/libheif-js@1.17.1/libheif-wasm/libheif-bundle.mjs';
+const { HeifDecoder } = libheif();
 
 // Function to handle file input change
 function handleFileInputChange(event) {
@@ -8,19 +9,15 @@ function handleFileInputChange(event) {
     reader.onload = function (event) {
       const arrayBuffer = event.target.result;
 
-      try {
-        const heifFile = new HeifFile(arrayBuffer);
-        const data = heifFile.get_primary_image();
-        const image = data.display();
+      const decoder = new HeifDecoder();
 
-        const width = image.width;
-        const height = image.height;
+      const data = decoder.decode(arrayBuffer);
+      const image = data[0];
+      const width = image.get_width();
+      const height = image.get_height();
 
-        console.log('Image width:', width);
-        console.log('Image height:', height);
-      } catch (e) {
-        console.error('Error decoding HEIF image:', e);
-      }
+      console.log('width:', width);
+      console.log('height:', height);
     };
 
     reader.readAsArrayBuffer(file);
